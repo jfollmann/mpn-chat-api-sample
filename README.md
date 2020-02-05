@@ -71,3 +71,6 @@ $ npm run start:dev
 ```
 
 Você poderá acessar a aplicação a partir do endereço [http://localhost:3333](http://localhost:3333)
+
+
+Ainda com dúvidas em relação ao comandos do docker? [Tente consultar este material](https://gist.github.com/jfollmann/f409defd29e2de689963a2edae5172e8)
