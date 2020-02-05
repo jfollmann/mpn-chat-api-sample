@@ -6,10 +6,10 @@ Este aplicativo consiste em disponibilizar apis para ilustrar um projeto de exem
 
 ```
 ├── src                           // Fontes do projeto
-│   ├── app.ts                    // Arquivo principal do projeto (index)
 │   ├── controllers               // Controllers do Projeto
 │   ├── middlewares               // Middlewares do Projeto
 │   ├── models                    // Modelos (Mongo)
+│   ├── app.ts                    // Arquivo principal do projeto (index)
 │   └── routes.ts                 // Definição das rotas da API
 ├── Dockerfile                    // DockerFile
 ├── .editorconfig                 // Definição guidelines do projeto
