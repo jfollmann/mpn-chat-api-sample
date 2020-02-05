@@ -16,10 +16,11 @@ Este aplicativo consiste em disponibilizar apis para ilustrar um projeto de exem
 ├── .gitignore                    // Definição de arquivos ignorados no GIT
 ├── nodemon.json                  // Recarregar automáticamente fontes alterados
 ├── package.json                  // Configurações e dependências do projeto
-├── README.md                     // Leia-me (este arquivo)
+├── package-lock.json             // Versões instaladas de cada depedência do projeto
 ├── tsconfig.json                 // Configurações TypeScript (GTS based)
-└── tslint.json                   // Configurações do TSLint
-└── tslint.json                   // Configurações do TSLint
+├── tslint.json                   // Configurações do TSLint
+├── README.md                     // Leia-me (este arquivo)
+├── docker-compose.yml            // Arquivo de definição da stack do compose
 ```
 
 ## Rodando a aplicação (docker-compose)
