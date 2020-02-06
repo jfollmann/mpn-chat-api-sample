@@ -86,3 +86,6 @@ typings/
 
 build
 junitresults.xml
+
+src/mongo_data/*
+!src/mongo_data/.gitkeep

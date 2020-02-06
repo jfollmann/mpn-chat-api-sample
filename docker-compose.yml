@@ -13,9 +13,12 @@
 #     environment:
 #       - PORT=3333
 #       - MONGO_URL=mongodb://mongodb/mpnChatDB
+
 #   mongodb:
 #     image: mongo
 #     container_name: mongodb
+#     volumes:
+#       - ./src/mongo_data:/data/db
 #     ports:
 #       - 27017:27017
 

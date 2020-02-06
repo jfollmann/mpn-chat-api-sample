@@ -23,6 +23,25 @@ Este aplicativo consiste em disponibilizar apis para ilustrar um projeto de exem
 ├── docker-compose.yml            // Arquivo de definição da stack do compose
 ```
 
+## Dependências do Projeto
+
+  * **cors**: Habilita acesso a diferentes origens
+  * **dotenv**: Loads env files
+  * **express**: Web Framework
+  * **http-status-codes**: Constantes com Códigos de Status HTTP
+  * **mongoose**: Mapeamento objeto-relacional (mongo)
+
+## Dependências de Desenvolvimento
+
+  * **@types/cors**: Definições de tipo para cors
+  * **@types/express**: Definições de tipo para express
+  * **@types/mongoose**: Definições de tipo para mongoose
+  * **@types/node**: Definições de tipo para node
+  * **gts**: Estilo typescript do google
+  * **nodemon**: Automação em recarregar fontes alterados
+  * **ts-node**: Executa typescript diretamente
+  * **typescript**: Linguagem que adiciona recursos ao Javascript
+
 ## Rodando a aplicação (docker-compose)
 
 Para rodar a aplicação, basta executar o seguinte comando:

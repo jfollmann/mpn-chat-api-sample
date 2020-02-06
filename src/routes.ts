@@ -2,7 +2,7 @@ import * as express from "express";
 import { helloController } from "./controllers/HelloController"
 import { personController } from "./controllers/PersonController"
 
-const routes = express.Router();
+const routes: express.Router = express.Router();
 
 routes.get("/", helloController.index);
 
