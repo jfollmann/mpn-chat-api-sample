@@ -18,7 +18,7 @@
 import * as express from "express";
 import * as mongoose from "mongoose";
 import * as cors from "cors";
-import { routes } from "./routes";
+import { routes } from "./Routes";
 import { loggerMiddleware } from "./middlewares/LoggerMiddleware"
 import { config as dotEnvConfig } from "dotenv";
 

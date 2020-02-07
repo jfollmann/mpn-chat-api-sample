@@ -1,7 +1,6 @@
 {
   "extends": "gts/tslint.json",
   "rules": {
-    "variable-name": false
   },
   "linterOptions": {
     "exclude": [

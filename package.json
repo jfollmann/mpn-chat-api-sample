@@ -6,15 +6,15 @@
   "repository": {
     "url": "github.com/jfollmann"
   },
-  "main": "build/src/app.js",
-  "types": "build/src/app.d.ts",
+  "main": "build/src/App.js",
+  "types": "build/src/App.d.ts",
   "files": [
     "build/src"
   ],
   "license": "Apache-2.0",
   "keywords": [],
   "scripts": {
-    "start": "node app.js",
+    "start": "node App.js",
     "start:dev": "nodemon",
     "check": "gts check",
     "clean": "gts clean",

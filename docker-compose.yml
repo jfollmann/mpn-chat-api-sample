@@ -1,36 +1,36 @@
-# version: "3"
-# services:
-#   mpn-chat-api:
-#     build: .
-#     image: mpn-chat-api
-#     container_name: mpn-chat-api
-#     depends_on:
-#       - mongodb
-#     links:
-#       - mongodb
-#     ports:
-#       - 3333:3333
-#     environment:
-#       - PORT=3333
-#       - MONGO_URL=mongodb://mongodb/mpnChatDB
-
-#   mongodb:
-#     image: mongo
-#     container_name: mongodb
-#     volumes:
-#       - ./src/mongo_data:/data/db
-#     ports:
-#       - 27017:27017
-
-
 version: "3"
 services:
   mpn-chat-api:
     build: .
     image: mpn-chat-api
     container_name: mpn-chat-api
+    depends_on:
+      - mongodb
+    links:
+      - mongodb
     ports:
       - 3333:3333
     environment:
       - PORT=3333
-      - MONGO_URL=mongodb+srv://mpnchat:Ukb2i3jC0soSTWRY@cluster0-zbd7b.mongodb.net/mpnChatDB?retryWrites=true&w=majority
+      - MONGO_URL=mongodb://mongodb/mpnChatDB
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    volumes:
+      - ./src/mongo_data:/data/db
+    ports:
+      - 27017:27017
+
+
+# version: "3"
+# services:
+#   mpn-chat-api:
+#     build: .
+#     image: mpn-chat-api
+#     container_name: mpn-chat-api
+#     ports:
+#       - 3333:3333
+#     environment:
+#       - PORT=3333
+#       - MONGO_URL=mongodb+srv://mpnchat:Ukb2i3jC0soSTWRY@cluster0-zbd7b.mongodb.net/mpnChatDB?retryWrites=true&w=majority
