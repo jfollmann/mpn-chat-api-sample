@@ -1,16 +1,16 @@
 import * as express from "express";
 import { helloController } from "./controllers/HelloController"
-import { personController } from "./controllers/PersonController"
-import { personCreateValidator, personUpdateValidator } from "./middlewares/validators/PersonValidator";
+import { userController } from "./controllers/UserController"
+import { userCreateValidator, userUpdateValidator } from "./middlewares/validators/UserValidator";
 
 const routes: express.Router = express.Router();
 
 routes.get("/", helloController.index);
 
-routes.get("/person", personController.index);
-routes.post("/person", personCreateValidator, personController.store);
-routes.get("/person/:id", personController.show);
-routes.put("/person/:id", personUpdateValidator, personController.update);
-routes.delete("/person/:id", personController.destroy);
+routes.get("/user", userController.index);
+routes.post("/user", userCreateValidator, userController.store);
+routes.get("/user/:id", userController.show);
+routes.put("/user/:id", userUpdateValidator, userController.update);
+routes.delete("/user/:id", userController.destroy);
 
 export { routes }

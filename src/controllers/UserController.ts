@@ -1,9 +1,9 @@
 import { OK, NO_CONTENT, UNPROCESSABLE_ENTITY, INTERNAL_SERVER_ERROR, NOT_FOUND } from "http-status-codes";
 import { Request, Response } from "express";
-import { Person } from "../models/Person";
+import { User } from "../models/User";
 import { validationResult } from "express-validator";
 
-class PersonController {
+class UserController {
 
   private hasError = (req: Request, res: Response) => {
     const errors = validationResult(req);
@@ -17,16 +17,14 @@ class PersonController {
   }
 
   index = (_req: Request, res: Response) => {
-    return Person.find()
+    return User.find()
       .then(p => res.status(OK).json(p))
       .catch(e => res.status(INTERNAL_SERVER_ERROR).json(e))
   }
 
   store = (req: Request, res: Response) => {
     if (!this.hasError(req, res)) {
-      const { firstName, lastName, email } = req.body;
-      // return Person.create(req.body)
-      return Person.create({ firstName, lastName, email })
+      return User.create(req.body)
         .then(p => res.status(OK).json(p))
         .catch(e => res.status(INTERNAL_SERVER_ERROR).json(e))
     }
@@ -35,14 +33,14 @@ class PersonController {
   }
 
   show = (req: Request, res: Response) => {
-    return Person.findById(req.params.id)
+    return User.findById(req.params.id)
       .then(p => p ? res.status(OK).json(p) : res.status(NOT_FOUND).send())
       .catch(e => res.status(INTERNAL_SERVER_ERROR).json(e))
   }
 
   update = (req: Request, res: Response) => {
     if (!this.hasError(req, res)) {
-      return Person.findByIdAndUpdate(req.params.id, req.body, { new: true })
+      return User.findByIdAndUpdate(req.params.id, req.body, { new: true })
         .then(p => p ? res.status(OK).json(p) : res.status(NOT_FOUND).send())
         .catch(e => res.status(INTERNAL_SERVER_ERROR).json(e))
     }
@@ -51,11 +49,11 @@ class PersonController {
   }
 
   destroy = (req: Request, res: Response) => {
-    return Person.findByIdAndDelete(req.params.id)
+    return User.findByIdAndDelete(req.params.id)
       .then(p => p ? res.status(NO_CONTENT).json(p) : res.status(NOT_FOUND).send())
       .catch(e => res.status(INTERNAL_SERVER_ERROR).json(e))
   }
 }
 
-const personController = new PersonController();
-export { personController }
+const userController = new UserController();
+export { userController }

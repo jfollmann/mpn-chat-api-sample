@@ -1,11 +1,8 @@
 import { check, body } from "express-validator";
 import { errorMessages } from "../../helpers/constants";
 
-const personCreateValidator = [
-  check("firstName")
-    .notEmpty().withMessage(errorMessages.isRequiredMessage),
-
-  check("lastName")
+const userCreateValidator = [
+  check("name")
     .notEmpty().withMessage(errorMessages.isRequiredMessage),
 
   check("email")
@@ -13,9 +10,13 @@ const personCreateValidator = [
     .isEmail().withMessage(errorMessages.isInvalid)
 ];
 
-const personUpdateValidator = [
+const userUpdateValidator = [
+  check("name").if(body("name").exists())
+    .notEmpty().withMessage(errorMessages.isRequiredMessage),
+
   check("email").if(body("email").exists())
+    .notEmpty().withMessage(errorMessages.isRequiredMessage)
     .isEmail().withMessage(errorMessages.isInvalid)
 ]
 
-export { personCreateValidator, personUpdateValidator }
+export { userCreateValidator, userUpdateValidator }
