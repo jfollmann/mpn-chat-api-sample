@@ -1,3 +1,20 @@
+// class MyClass {
+
+//   private multiply = 10;
+
+//   log(v1: number): void {
+//     console.log("[LogBar] Bar's value is: " + this.multiply * v1);
+//   }
+
+//   log2 = (v1: number) => {
+//     console.log("[LogBar2] Bar's value is: " + this.multiply * v1);
+//   }
+// }
+
+// const myObj = new MyClass();
+// myObj.log(5);
+// myObj.log2(5);
+
 import * as express from "express";
 import * as mongoose from "mongoose";
 import * as cors from "cors";
