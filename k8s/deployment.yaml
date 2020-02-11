@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: capacitacao-dp
+  namespace: capacitacao
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: capacitacao-dp
+  template:
+    metadata:
+      labels:
+        name: capacitacao-dp
+    spec:
+      imagePullSecrets:
+        - name: docker.totvs.io-credentials
+      containers:
+        - name: capacitacao
+          image: docker.totvs.io/totvsmpn/mpn-chat-capacitacao
+          env:
+            - name: PORT
+              value: "3333"
+            - name: MONGO_URL
+              value: mongodb+srv://user:password@cluster0-zbd7b.mongodb.net/mpn-chat-capacitacao?retryWrites=true&w=majority
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "50m"
+          ports:
+            - containerPort: 3333
