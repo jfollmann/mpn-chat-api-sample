@@ -18,7 +18,7 @@ class UserController extends BaseController {
         .catch(error => res.status(INTERNAL_SERVER_ERROR).json(error))
     }
 
-    return;
+    return res;
   }
 
   show = (req: Request, res: Response) => {
@@ -34,7 +34,7 @@ class UserController extends BaseController {
         .catch(error => res.status(INTERNAL_SERVER_ERROR).json(error))
     }
 
-    return;
+    return res;
   }
 
   destroy = (req: Request, res: Response) => {

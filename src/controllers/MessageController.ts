@@ -17,7 +17,7 @@ class MessageController extends BaseController {
         .catch(error => res.status(INTERNAL_SERVER_ERROR).json(error))
     }
 
-    return;
+    return res;
   }
 
   store = (req: Request, res: Response) => {
@@ -27,7 +27,7 @@ class MessageController extends BaseController {
         .catch(error => res.status(INTERNAL_SERVER_ERROR).json(error))
     }
 
-    return;
+    return res;
   }
 
   update = (req: Request, res: Response) => {
@@ -38,7 +38,7 @@ class MessageController extends BaseController {
         .catch(error => res.status(INTERNAL_SERVER_ERROR).json(error))
     }
 
-    return;
+    return res;
   }
 }
 
