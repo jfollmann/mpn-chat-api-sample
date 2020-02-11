@@ -9,15 +9,7 @@ Para a versão 1 não foi abordado webSockets (socket.io), com o objetivo de sim
 
 ```
 ~/mpn-chat-api
-├── docker-compose.yml                // Arquivo de definição da stack do compose
-├── Dockerfile                        // DockerFile
-├── InsomniaWorkspace.json            // Arquivo Collection Insomnia Workspace (Sample Request's)
-├── nodemon.json                      // Recarregar automáticamente fontes alterados
-├── package.json                      // Configurações e dependências do projeto
-├── package-lock.json                 // Versões instaladas de cada depedência do projeto
-├── README.md                         // Leia-me (este arquivo)
 ├── src                               // Diretório dos fontes do projeto
-│   ├── App.ts                        // Arquivo principal do projeto
 │   ├── controllers                   // Diretório dos controllers do Projeto
 │   │   ├── base                      // Diretório dos controllers Base do Projeto
 │   │   │   └── BaseController.ts     // Controller Base do Projeto
@@ -35,7 +27,15 @@ Para a versão 1 não foi abordado webSockets (socket.io), com o objetivo de sim
 │   │   ├── Message.ts                // Definição do Modelo de Mensagem
 │   │   └── User.ts                   // Definição do Modelo de Usuário
 │   ├── mongo_data                    // Diretório do mongo_data (volume docker)
+│   ├── App.ts                        // Arquivo principal do projeto
 │   └── Routes.ts                     // Arquivo de definição das Rotas do Projeto
+├── docker-compose.yml                // Arquivo de definição da stack do compose
+├── Dockerfile                        // DockerFile
+├── InsomniaWorkspace.json            // Arquivo Collection Insomnia Workspace (Sample Request's)
+├── nodemon.json                      // Recarregar automáticamente fontes alterados
+├── package.json                      // Configurações e dependências do projeto
+├── package-lock.json                 // Versões instaladas de cada depedência do projeto
+├── README.md                         // Leia-me (este arquivo)
 ├── tsconfig.json                     // Configurações TypeScript (GTS based)
 └── tslint.json                       // Configurações do TSLint
 ```
