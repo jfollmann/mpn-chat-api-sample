@@ -9,6 +9,13 @@ Para a versão 1 não foi abordado webSockets (socket.io), com o objetivo de sim
 
 ```
 ~/mpn-chat-api
+├── k8s                               // Diretório com a stack do K8s
+│   ├── deployment.yaml               // K8s: Definição do deployment
+│   ├── hpa.yaml                      // K8s: Definição do HPA
+│   ├── pod.yaml                      // K8s: Definição de POD (descontinuado)
+│   ├── secrets.yaml                  // K8s: Definição das Secrets
+│   ├── service.yaml                  // K8s: Definição dos Services
+│   └── test_stress.sh                // Script SH de test de stress
 ├── src                               // Diretório dos fontes do projeto
 │   ├── controllers                   // Diretório dos controllers do Projeto
 │   │   ├── base                      // Diretório dos controllers Base do Projeto
