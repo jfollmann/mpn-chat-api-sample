@@ -14,9 +14,6 @@
   "license": "Apache-2.0",
   "keywords": [],
   "scripts": {
-    "docker:build": "docker build -t docker.totvs.io/totvsmpn/mpn-chat-capacitacao .",
-    "docker:push": "docker push docker.totvs.io/totvsmpn/mpn-chat-capacitacao",
-    "docker": "npm run docker:build && npm run docker:push",
     "start": "node App.js",
     "start:dev": "nodemon",
     "check": "gts check",
