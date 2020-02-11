@@ -1,26 +1,44 @@
 # MPN Chat API
 
 Este aplicativo consiste em disponibilizar apis para ilustrar um projeto de exemplo utilizando express e mongoose.
+Para a versão 1 não foi abordado webSockets (socket.io), com o objetivo de simplificar o projeto para fins didáticos.
+
+
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=MPN%20Chat%20Sample&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fjfollmann%2Fmpn-chat-api-sample%2Fmaster%2FInsomniaWorkspace.json)
 
 ## Estrutura do projeto
 
 ```
-├── src                           // Fontes do projeto
-│   ├── controllers               // Controllers do Projeto
-│   ├── middlewares               // Middlewares do Projeto
-│   ├── models                    // Modelos (Mongo)
-│   ├── app.ts                    // Arquivo principal do projeto (index)
-│   └── routes.ts                 // Definição das rotas da API
-├── Dockerfile                    // DockerFile
-├── .editorconfig                 // Definição guidelines do projeto
-├── .gitignore                    // Definição de arquivos ignorados no GIT
-├── nodemon.json                  // Recarregar automáticamente fontes alterados
-├── package.json                  // Configurações e dependências do projeto
-├── package-lock.json             // Versões instaladas de cada depedência do projeto
-├── tsconfig.json                 // Configurações TypeScript (GTS based)
-├── tslint.json                   // Configurações do TSLint
-├── README.md                     // Leia-me (este arquivo)
-├── docker-compose.yml            // Arquivo de definição da stack do compose
+~/mpn-chat-api
+├── docker-compose.yml                // Arquivo de definição da stack do compose
+├── Dockerfile                        // DockerFile
+├── InsomniaWorkspace.json            // Arquivo Collection Insomnia Workspace (Sample Request's)
+├── nodemon.json                      // Recarregar automáticamente fontes alterados
+├── package.json                      // Configurações e dependências do projeto
+├── package-lock.json                 // Versões instaladas de cada depedência do projeto
+├── README.md                         // Leia-me (este arquivo)
+├── src                               // Diretório dos fontes do projeto
+│   ├── App.ts                        // Arquivo principal do projeto
+│   ├── controllers                   // Diretório dos controllers do Projeto
+│   │   ├── base                      // Diretório dos controllers Base do Projeto
+│   │   │   └── BaseController.ts     // Controller Base do Projeto
+│   │   ├── HelloController.ts        // Hello Controller
+│   │   ├── MessageController.ts      // Message Controller
+│   │   └── UserController.ts         // User Controller
+│   ├── helpers                       // Diretório dos Helpers do projeto
+│   │   └── Constants.ts              // Arquivo de definição de constantes
+│   ├── middlewares                   // Diretório de Middlewares
+│   │   ├── LoggerMiddleware.ts       // Logger Middleware
+│   │   └── validators                // Diretório de middlewares de validação
+│   │       ├── MessageValidator.ts   // Middleware de validação das messagens
+│   │       └── UserValidator.ts      // Middleware de validação de usuário
+│   ├── models                        // Diretório dos Modelos do Projeto (mongo)
+│   │   ├── Message.ts                // Definição do Modelo de Mensagem
+│   │   └── User.ts                   // Definição do Modelo de Usuário
+│   ├── mongo_data                    // Diretório do mongo_data (volume docker)
+│   └── Routes.ts                     // Arquivo de definição das Rotas do Projeto
+├── tsconfig.json                     // Configurações TypeScript (GTS based)
+└── tslint.json                       // Configurações do TSLint
 ```
 
 ## Dependências do Projeto
