@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { User } from "../models/User";
 import { BaseController } from "./base/BaseController";
 
-class UserController extends BaseController {
+export class UserController extends BaseController {
 
   index = (_req: Request, res: Response) => {
     return User.find()
@@ -44,5 +44,4 @@ class UserController extends BaseController {
   }
 }
 
-const userController = new UserController();
-export { userController }
+export const userController = new UserController();

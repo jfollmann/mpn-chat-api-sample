@@ -1,19 +1,22 @@
 import * as express from "express";
 import * as cors from "cors";
-import { apiRoutes } from "./ApiRoutes";
-import { loggerMiddleware } from "../middlewares/LoggerMiddleware"
+import { userRoutes } from "./../routes/UserRoutes";
+import { messageRoutes } from "./../routes/MessageRoutes";
+import { loggerMiddleware } from "../middlewares/LoggerMiddleware";
 import { config as dotEnvConfig } from "dotenv";
 import { db } from "../models/Database";
+import { helloRoutes } from "../routes/HelloRoutes";
 
 export class App {
   express = express();
 
   constructor() {
     this.config();
+
     db.connect();
   }
 
-  config = () => {
+  config() {
     dotEnvConfig();
 
     this.express.use(cors());
@@ -21,9 +24,10 @@ export class App {
     this.express.use(express.json());
     this.express.use(express.urlencoded({ extended: true }));
 
-    this.express.use("/api", apiRoutes);
+    this.express.use("/api/", helloRoutes);
+    this.express.use("/api/user", userRoutes);
+    this.express.use("/api/message", messageRoutes);
   }
 }
 
-const app = new App();
-export { app }
+export const app = new App();

@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { Message } from "../models/Message";
 import { BaseController } from "./base/BaseController";
 
-class MessageController extends BaseController {
+export class MessageController extends BaseController {
 
   index = (req: Request, res: Response) => {
     if (!this.hasError(req, res)) {
@@ -42,5 +42,4 @@ class MessageController extends BaseController {
   }
 }
 
-const messageController = new MessageController();
-export { messageController }
+export const messageController = new MessageController();

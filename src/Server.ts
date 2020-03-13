@@ -10,5 +10,4 @@ export class Server {
   }
 }
 
-const server = new Server();
-export { server }
+export const server = new Server();
