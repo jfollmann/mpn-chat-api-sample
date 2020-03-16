@@ -9,14 +9,15 @@ export class MessageController extends BaseController {
     if (!this.hasError(req, res)) {
       const { userTo, userFrom } = req.query;
 
-      return Message.find().or([
-        { $and: [{ userTo }, { userFrom }] },
-        { $and: [{ userTo: userFrom }, { userFrom: userTo }] }
-      ]).sort({ createdAt: 1 })//.populate("userTo").populate("userFrom")
+      return Message.find({
+        $or: [
+          { $and: [{ userTo }, { userFrom }] },
+          { $and: [{ userTo: userFrom }, { userFrom: userTo }] }
+        ]
+      }, [], { sort: { createdAt: 1 } })//.populate("userTo").populate("userFrom")
         .then(messages => res.status(OK).json(messages))
         .catch(error => res.status(INTERNAL_SERVER_ERROR).json(error))
     }
-
     return res;
   }
 

@@ -1,7 +1,7 @@
-import { OK, NO_CONTENT, INTERNAL_SERVER_ERROR, NOT_FOUND } from "http-status-codes";
 import { Request, Response } from "express";
 import { User } from "../models/User";
 import { BaseController } from "./base/BaseController";
+import { OK, NO_CONTENT, INTERNAL_SERVER_ERROR, NOT_FOUND } from "http-status-codes";
 
 export class UserController extends BaseController {
 

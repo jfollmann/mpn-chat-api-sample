@@ -3,7 +3,6 @@
   "compilerOptions": {
     "rootDir": ".",
     "outDir": "build",
-
     "noImplicitAny": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -11,6 +10,7 @@
   },
   "include": [
     "src/**/*.ts",
-    "test/**/*.ts"
+    "!test/**/*.ts"
   ]
 }
+

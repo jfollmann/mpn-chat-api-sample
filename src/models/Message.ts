@@ -1,6 +1,6 @@
 import { Schema, model, Types } from "mongoose";
 
-const message = new Schema(
+const messageSchema = new Schema(
   {
     userTo: {
       required: true,
@@ -23,5 +23,5 @@ const message = new Schema(
   }
 );
 
-const messageModel = model("Message", message);
+const messageModel = model("Message", messageSchema);
 export { messageModel as Message }

@@ -1,0 +1,159 @@
+import "jasmine";
+
+import { Message } from "../../src/models/Message";
+import { MessageController } from "../../src/controllers/MessageController";
+import { expressRequestMock, expressResponseMock, spyRequest } from "../_mocks/HelperMocks";
+import { OK, INTERNAL_SERVER_ERROR, NOT_FOUND } from "http-status-codes";
+
+describe("Message Controller", () => {
+
+  const db = [{
+    _id: "5e6b6d38c00f913074fa58b5", userTo: "5e67f5fec9974b7a88eec739", userFrom: "5e677d29991d8f4d664d571d",
+    content: "send a message?", createdAt: "2020-03-13T11:23:36.152Z", updatedAt: "2020-03-13T11:23:36.152Z", __v: 0
+  },
+  {
+    _id: "5e6f787b7d81156cc81692f1", userTo: "5e677d29991d8f4d664d571d", userFrom: "5e67f5fec9974b7a88eec739",
+    content: "response a message", createdAt: "2020-03-16T13:00:43.074Z", updatedAt: "2020-03-16T13:00:43.074Z", __v: 0
+  }];
+
+  describe("Index", () => {
+    it("- Happy Path", async () => {
+      //Arrange
+      const { spyStatus, spyJson } = spyRequest();
+      const spyModel = spyOn(Message, "find").and.returnValue(Promise.resolve(db) as any);
+
+      //Act
+      const controller = new MessageController();
+      const request = expressRequestMock;
+      request.query = { userTo: "1", userFrom: "2" };
+
+      await controller.index(expressRequestMock as any, expressResponseMock as any);
+
+      //Assert
+      expect(spyStatus).toHaveBeenCalled();
+      expect(spyStatus).toHaveBeenCalledWith(OK);
+      expect(spyJson).toHaveBeenCalled();
+      expect(spyJson).toHaveBeenCalledWith(db);
+      expect(spyModel).toHaveBeenCalled();
+    })
+
+    it("- Unhappy Path", async () => {
+      //Arrange
+      const { spyStatus, spyJson } = spyRequest();
+      const responseExpected = { message: "bad error" };
+      const spyModel = spyOn(Message, "find").and.returnValue(Promise.reject(responseExpected) as any);
+
+      //Act
+      const controller = new MessageController();
+      await controller.index(expressRequestMock as any, expressResponseMock as any);
+
+      //Assert
+      expect(spyStatus).toHaveBeenCalled();
+      expect(spyStatus).toHaveBeenCalledWith(INTERNAL_SERVER_ERROR);
+      expect(spyJson).toHaveBeenCalled();
+      expect(spyJson).toHaveBeenCalledWith(responseExpected);
+      expect(spyModel).toHaveBeenCalled();
+    })
+  })
+
+  describe("Store", () => {
+    it("- Happy Path", async () => {
+      //Arrange
+      const { spyStatus, spyJson } = spyRequest();
+      const spyModel = spyOn(Message, "create").and.returnValue(Promise.resolve(db) as any);
+
+      //Act
+      const controller = new MessageController();
+      const request = expressRequestMock;
+      request.body = { userTo: "1", "userFrom": "2", content: "create a message" };
+      await controller.store(request as any, expressResponseMock as any);
+
+      //Assert
+      expect(spyStatus).toHaveBeenCalled();
+      expect(spyStatus).toHaveBeenCalledWith(OK);
+      expect(spyJson).toHaveBeenCalled();
+      expect(spyJson).toHaveBeenCalledWith(db);
+      expect(spyModel).toHaveBeenCalled();
+      expect(spyModel).toHaveBeenCalledWith({ userTo: "1", "userFrom": "2", content: "create a message" });
+    })
+
+    it("- Unhappy Path (Bad error)", async () => {
+      //Arrange
+      const { spyStatus, spyJson } = spyRequest();
+      const responseExpected = { message: "bad error" };
+      const spyModel = spyOn(Message, "create").and.returnValue(Promise.reject(responseExpected) as any);
+
+      //Act
+      const controller = new MessageController();
+      await controller.store(expressRequestMock as any, expressResponseMock as any);
+
+      //Assert
+      expect(spyStatus).toHaveBeenCalled();
+      expect(spyStatus).toHaveBeenCalledWith(INTERNAL_SERVER_ERROR);
+      expect(spyJson).toHaveBeenCalled();
+      expect(spyJson).toHaveBeenCalledWith(responseExpected);
+      expect(spyModel).toHaveBeenCalled();
+    })
+  })
+
+  describe("Update", () => {
+    it("- Happy Path", async () => {
+      //Arrange
+      const { spyStatus, spyJson } = spyRequest();
+      const spyModel = spyOn(Message, "findByIdAndUpdate").and.returnValue(Promise.resolve(db) as any);
+
+      //Act
+      const controller = new MessageController();
+      const request = expressRequestMock;
+      request.params = { id: "123" };
+      request.body = { content: "message date" };
+      await controller.update(request as any, expressResponseMock as any);
+
+      //Assert
+      expect(spyStatus).toHaveBeenCalled();
+      expect(spyStatus).toHaveBeenCalledWith(OK);
+      expect(spyJson).toHaveBeenCalled();
+      expect(spyJson).toHaveBeenCalledWith(db);
+      expect(spyModel).toHaveBeenCalled();
+    })
+
+    it("- Unhappy Path (Bad error)", async () => {
+      //Arrange
+      const { spyStatus, spyJson } = spyRequest();
+      const responseExpected = { message: "bad error" };
+      const spyModel = spyOn(Message, "findByIdAndUpdate").and.returnValue(Promise.reject(responseExpected) as any);
+
+      //Act
+      const controller = new MessageController();
+      const request = expressRequestMock;
+      request.params = { id: "123" };
+      await controller.update(request as any, expressResponseMock as any);
+
+      //Assert
+      expect(spyStatus).toHaveBeenCalled();
+      expect(spyStatus).toHaveBeenCalledWith(INTERNAL_SERVER_ERROR);
+      expect(spyJson).toHaveBeenCalled();
+      expect(spyJson).toHaveBeenCalledWith(responseExpected);
+      expect(spyModel).toHaveBeenCalled();
+    })
+
+    it("- Unhappy Path (Not found)", async () => {
+      //Arrange
+      const { spyStatus, spySend } = spyRequest();
+      const spyModel = spyOn(Message, "findByIdAndUpdate").and.returnValue(Promise.resolve(null) as any);
+
+      //Act
+      const controller = new MessageController();
+      const request = expressRequestMock;
+      request.params = { id: "123" };
+      request.body = { content: "message date" };
+      await controller.update(request as any, expressResponseMock as any);
+
+      //Assert
+      expect(spyStatus).toHaveBeenCalled();
+      expect(spyStatus).toHaveBeenCalledWith(NOT_FOUND);
+      expect(spySend).toHaveBeenCalled();
+      expect(spyModel).toHaveBeenCalled();
+    })
+  })
+})
