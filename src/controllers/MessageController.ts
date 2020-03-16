@@ -3,20 +3,21 @@ import { Request, Response } from "express";
 import { Message } from "../models/Message";
 import { BaseController } from "./base/BaseController";
 
-class MessageController extends BaseController {
+export class MessageController extends BaseController {
 
   index = (req: Request, res: Response) => {
     if (!this.hasError(req, res)) {
       const { userTo, userFrom } = req.query;
 
-      return Message.find().or([
-        { $and: [{ userTo }, { userFrom }] },
-        { $and: [{ userTo: userFrom }, { userFrom: userTo }] }
-      ]).sort({ createdAt: 1 })//.populate("userTo").populate("userFrom")
+      return Message.find({
+        $or: [
+          { $and: [{ userTo }, { userFrom }] },
+          { $and: [{ userTo: userFrom }, { userFrom: userTo }] }
+        ]
+      }, [], { sort: { createdAt: 1 } })//.populate("userTo").populate("userFrom")
         .then(messages => res.status(OK).json(messages))
         .catch(error => res.status(INTERNAL_SERVER_ERROR).json(error))
     }
-
     return res;
   }
 
@@ -42,5 +43,4 @@ class MessageController extends BaseController {
   }
 }
 
-const messageController = new MessageController();
-export { messageController }
+export const messageController = new MessageController();

@@ -1,10 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { hostname } from "os";
 
-const loggerMiddleware = (req: Request, _res: Response, next: NextFunction) => {
-  console.log(`${req.method} ${req.originalUrl} - host: ${hostname()}`);
+export const loggerMiddleware = (req: Request, _res: Response, next: NextFunction) => {
+  console.log(`[Host: ${hostname()}] - ${req.method} ${req.originalUrl}`);
 
   next();
 }
-
-export { loggerMiddleware }

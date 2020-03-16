@@ -1,9 +1,9 @@
-import { OK, NO_CONTENT, INTERNAL_SERVER_ERROR, NOT_FOUND } from "http-status-codes";
 import { Request, Response } from "express";
 import { User } from "../models/User";
 import { BaseController } from "./base/BaseController";
+import { OK, NO_CONTENT, INTERNAL_SERVER_ERROR, NOT_FOUND } from "http-status-codes";
 
-class UserController extends BaseController {
+export class UserController extends BaseController {
 
   index = (_req: Request, res: Response) => {
     return User.find()
@@ -44,5 +44,4 @@ class UserController extends BaseController {
   }
 }
 
-const userController = new UserController();
-export { userController }
+export const userController = new UserController();

@@ -4,8 +4,10 @@ import { UNPROCESSABLE_ENTITY } from "http-status-codes";
 
 export class BaseController {
 
+  validationRequest(req: Request) { return validationResult(req) };
+
   protected hasError = (req: Request, res: Response) => {
-    const errors = validationResult(req);
+    const errors = this.validationRequest(req);
     if (!errors.isEmpty()) {
       res.status(UNPROCESSABLE_ENTITY).json({ errors: errors.array() });
 
