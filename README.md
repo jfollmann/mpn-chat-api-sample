@@ -3,8 +3,11 @@
 Este aplicativo consiste em disponibilizar apis para ilustrar um projeto de exemplo utilizando express e mongoose.
 Para a versão 1 não foi abordado webSockets (socket.io), com o objetivo de simplificar o projeto para fins didáticos.
 
-[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=MPN%20Chat%20API%20Sample&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fjfollmann%2Fmpn-chat-api-sample%2Fmaster%2FInsomniaWorkspace.json)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/jfollmann/mpn-chat-api-sample/CI/master)
+![CI](https://github.com/jfollmann/mpn-chat-api-sample/workflows/CI/badge.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/jfollmann/mpn-chat-api-sample/badge.svg?branch=master)](https://coveralls.io/github/jfollmann/mpn-chat-api-sample?branch=master)
 
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=MPN%20Chat%20API%20Sample&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fjfollmann%2Fmpn-chat-api-sample%2Fmaster%2FInsomniaWorkspace.json)
 ## Estrutura do projeto
 
 ```
@@ -111,6 +114,16 @@ Em seguida, executar:
 
 ```bash
 $ npm run start:dev
+```
+
+## Executando os testes
+
+```bash
+$ npm run test
+```
+ou
+```bash
+$ npm run test:coverage
 ```
 
 Você poderá acessar a aplicação a partir do endereço [http://localhost:3333](http://localhost:3333)
