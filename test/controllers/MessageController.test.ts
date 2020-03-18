@@ -4,8 +4,14 @@ import { Message } from "../../src/models/Message";
 import { MessageController } from "../../src/controllers/MessageController";
 import { expressRequestMock, expressResponseMock, spyRequest } from "../_mocks/HelperMocks";
 import { OK, INTERNAL_SERVER_ERROR, NOT_FOUND } from "http-status-codes";
+import { BaseController } from "../../src/controllers/base/BaseController";
 
 describe("Message Controller", () => {
+
+  let request: any;
+  beforeEach(() => {
+    request = expressRequestMock.init();
+  })
 
   const db = [{
     _id: "5e6b6d38c00f913074fa58b5", userTo: "5e67f5fec9974b7a88eec739", userFrom: "5e677d29991d8f4d664d571d",
@@ -21,13 +27,11 @@ describe("Message Controller", () => {
       //Arrange
       const { spyStatus, spyJson } = spyRequest();
       const spyModel = spyOn(Message, "find").and.returnValue(Promise.resolve(db) as any);
+      request.query = { userTo: "1", userFrom: "2" };
 
       //Act
       const controller = new MessageController();
-      const request = expressRequestMock.init();
-      request.query = { userTo: "1", userFrom: "2" };
-
-      await controller.index(expressRequestMock.init() as any, expressResponseMock as any);
+      await controller.index(request as any, expressResponseMock as any);
 
       //Assert
       expect(spyStatus).toHaveBeenCalled();
@@ -37,7 +41,7 @@ describe("Message Controller", () => {
       expect(spyModel).toHaveBeenCalled();
     })
 
-    it("- Unhappy Path", async () => {
+    it("- Unhappy Path (Bad error)", async () => {
       //Arrange
       const { spyStatus, spyJson } = spyRequest();
       const responseExpected = { message: "bad error" };
@@ -45,7 +49,7 @@ describe("Message Controller", () => {
 
       //Act
       const controller = new MessageController();
-      await controller.index(expressRequestMock.init() as any, expressResponseMock as any);
+      await controller.index(request as any, expressResponseMock as any);
 
       //Assert
       expect(spyStatus).toHaveBeenCalled();
@@ -54,6 +58,23 @@ describe("Message Controller", () => {
       expect(spyJson).toHaveBeenCalledWith(responseExpected);
       expect(spyModel).toHaveBeenCalled();
     })
+
+    it("- Unhappy Path (Has error)", async () => {
+      //Arranged
+
+      const { spyStatus, spyJson } = spyRequest();
+      const spyModel = spyOn(Message, "find")
+
+      //Act
+      const controller = new MessageController();
+      spyOn(controller, "hasError").and.returnValue(true);
+      await controller.index(request as any, expressResponseMock as any);
+
+      //Assert
+      expect(spyStatus).not.toHaveBeenCalled();
+      expect(spyJson).not.toHaveBeenCalled();
+      expect(spyModel).not.toHaveBeenCalled();
+    })
   })
 
   describe("Store", () => {
@@ -61,11 +82,10 @@ describe("Message Controller", () => {
       //Arrange
       const { spyStatus, spyJson } = spyRequest();
       const spyModel = spyOn(Message, "create").and.returnValue(Promise.resolve(db) as any);
+      request.body = { userTo: "1", "userFrom": "2", content: "create a message" };
 
       //Act
       const controller = new MessageController();
-      const request = expressRequestMock.init();
-      request.body = { userTo: "1", "userFrom": "2", content: "create a message" };
       await controller.store(request as any, expressResponseMock as any);
 
       //Assert
@@ -85,7 +105,7 @@ describe("Message Controller", () => {
 
       //Act
       const controller = new MessageController();
-      await controller.store(expressRequestMock.init() as any, expressResponseMock as any);
+      await controller.store(request as any, expressResponseMock as any);
 
       //Assert
       expect(spyStatus).toHaveBeenCalled();
@@ -94,6 +114,22 @@ describe("Message Controller", () => {
       expect(spyJson).toHaveBeenCalledWith(responseExpected);
       expect(spyModel).toHaveBeenCalled();
     })
+
+    it("- Unhappy Path (Has error)", async () => {
+      //Arrange
+      const { spyStatus, spyJson } = spyRequest();
+      const spyModel = spyOn(Message, "create");
+
+      //Act
+      const controller = new MessageController();
+      spyOn(controller, "hasError").and.returnValue(true);
+      await controller.store(request as any, expressResponseMock as any);
+
+      //Assert
+      expect(spyStatus).not.toHaveBeenCalled();
+      expect(spyJson).not.toHaveBeenCalled();
+      expect(spyModel).not.toHaveBeenCalled();
+    })
   })
 
   describe("Update", () => {
@@ -101,12 +137,11 @@ describe("Message Controller", () => {
       //Arrange
       const { spyStatus, spyJson } = spyRequest();
       const spyModel = spyOn(Message, "findByIdAndUpdate").and.returnValue(Promise.resolve(db) as any);
+      request.params = { id: "123" };
+      request.body = { content: "message date" };
 
       //Act
       const controller = new MessageController();
-      const request = expressRequestMock.init();
-      request.params = { id: "123" };
-      request.body = { content: "message date" };
       await controller.update(request as any, expressResponseMock as any);
 
       //Assert
@@ -122,11 +157,10 @@ describe("Message Controller", () => {
       const { spyStatus, spyJson } = spyRequest();
       const responseExpected = { message: "bad error" };
       const spyModel = spyOn(Message, "findByIdAndUpdate").and.returnValue(Promise.reject(responseExpected) as any);
+      request.params = { id: "123" };
 
       //Act
       const controller = new MessageController();
-      const request = expressRequestMock.init();
-      request.params = { id: "123" };
       await controller.update(request as any, expressResponseMock as any);
 
       //Assert
@@ -137,16 +171,32 @@ describe("Message Controller", () => {
       expect(spyModel).toHaveBeenCalled();
     })
 
+    it("- Unhappy Path (Has error)", async () => {
+      //Arrange
+      const { spyStatus, spyJson } = spyRequest();
+      const spyModel = spyOn(Message, "findByIdAndUpdate");
+      request.params = { id: "123" };
+
+      //Act
+      const controller = new MessageController();
+      spyOn(controller, "hasError").and.returnValue(true);
+      await controller.update(request as any, expressResponseMock as any);
+
+      //Assert
+      expect(spyStatus).not.toHaveBeenCalled();
+      expect(spyJson).not.toHaveBeenCalled();
+      expect(spyModel).not.toHaveBeenCalled();
+    })
+
     it("- Unhappy Path (Not found)", async () => {
       //Arrange
       const { spyStatus, spySend } = spyRequest();
       const spyModel = spyOn(Message, "findByIdAndUpdate").and.returnValue(Promise.resolve(null) as any);
+      request.params = { id: "123" };
+      request.body = { content: "message date" };
 
       //Act
       const controller = new MessageController();
-      const request = expressRequestMock.init();
-      request.params = { id: "123" };
-      request.body = { content: "message date" };
       await controller.update(request as any, expressResponseMock as any);
 
       //Assert

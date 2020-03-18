@@ -37,8 +37,6 @@ describe("MessageListValidator", () => {
       { value: undefined, location: "query", msg: errorMessages.isRequired, param: "userFrom" },
     ] as any;
 
-    request = expressRequestMock.init();
-
     //Act
     const { errorsCount, errors } = await expressValidationImperativelyMock(messageListValidator, request);
 
@@ -90,8 +88,6 @@ describe("MessageCreateValidator", () => {
       { value: undefined, location: "body", msg: errorMessages.isRequired, param: "userTo" },
       { value: undefined, location: "body", msg: errorMessages.isRequired, param: "userFrom" },
     ] as any;
-
-    request = expressRequestMock.init();
 
     //Act
     const { errorsCount, errors } = await expressValidationImperativelyMock(messageCreateValidator, request);

@@ -41,7 +41,8 @@
     "compile": "tsc -p .",
     "fix": "gts fix",
     "test": "jasmine-ts --config=jasmine.json",
-    "test:coverage": "nyc --reporter=lcov npm test"
+    "test:coverage": "nyc npm test",
+    "test:coverage-lcov": "nyc --reporter=lcov npm test"
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",

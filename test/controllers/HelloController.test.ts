@@ -6,6 +6,11 @@ import { OK } from "http-status-codes";
 
 describe("Hello Controller", () => {
 
+  let request: any;
+  beforeEach(() => {
+    request = expressRequestMock.init();
+  })
+
   it("- Say Hello Happy Path", async () => {
     //Arrange
     const spyStatus = spyOn(expressResponseMock, "status").and.returnValue(expressResponseMock);
@@ -13,7 +18,7 @@ describe("Hello Controller", () => {
 
     //Act
     const controller = new HelloController();
-    controller.index(expressRequestMock.init() as any, expressResponseMock as any);
+    controller.index(request as any, expressResponseMock as any);
 
     //Assert
     expect(spyStatus).toHaveBeenCalled();

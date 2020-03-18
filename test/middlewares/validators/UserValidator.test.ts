@@ -33,8 +33,6 @@ describe("UserCreateValidator", () => {
       { value: undefined, location: "body", msg: errorMessages.isInvalid, param: "email" }
     ] as any;
 
-    request = expressRequestMock.init();
-
     //Act
     const { errorsCount, errors } = await expressValidationImperativelyMock(userCreateValidator, request);
 
