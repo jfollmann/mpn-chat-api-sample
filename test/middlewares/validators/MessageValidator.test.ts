@@ -6,15 +6,18 @@ import { errorMessages } from "../../../src/helpers/Constants";
 import { User } from "../../../src/models/User";
 
 let request: any;
+let spyModel: any;
 
 beforeEach(() => {
   request = expressRequestMock.init();
+  spyModel = spyOn(User, "exists");
 })
 
 describe("MessageListValidator", () => {
 
   it("- Happy Path", async () => {
     //Arrange
+    spyModel.and.resolveTo(true);
     const expectedErrors = [];
     request.query = { userTo: "5e677d29991d8f4d664d571d", userFrom: "5e67f5fec9974b7a88eec739" };
 
@@ -28,6 +31,7 @@ describe("MessageListValidator", () => {
 
   it("- Unhappy Path - Empty Request", async () => {
     //Arrange
+    spyModel.and.resolveTo(true);
     const expectedErrors = [
       { value: undefined, location: "query", msg: errorMessages.isRequired, param: "userTo" },
       { value: undefined, location: "query", msg: errorMessages.isRequired, param: "userFrom" },
@@ -44,7 +48,7 @@ describe("MessageListValidator", () => {
 
   it("- Unhappy Path - User not exists", async () => {
     //Arrange
-    const spyModdel = spyOn(User, "exists").and.resolveTo(false);
+    spyModel.and.resolveTo(false);
     request.query = { userTo: "5e677d29991d8f4d664d571d", userFrom: "5e67f5fec9974b7a88eec739" };
 
     const expectedErrors = [
@@ -56,8 +60,8 @@ describe("MessageListValidator", () => {
     //Act
     const { errorsCount, errors } = await expressValidationImperativelyMock(messageListValidator, request);
 
-    expect(spyModdel).toHaveBeenCalled();
-    expect(spyModdel).toHaveBeenCalledTimes(2);
+    expect(spyModel).toHaveBeenCalled();
+    expect(spyModel).toHaveBeenCalledTimes(2);
     expect(errorsCount).toEqual(expectedErrors.length);
     expect(errors).toEqual(expectedErrors);
   })
@@ -66,6 +70,7 @@ describe("MessageListValidator", () => {
 describe("MessageCreateValidator", () => {
   it("- Happy Path", async () => {
     //Arrange
+    spyModel.and.resolveTo(true);
     const expectedErrors = [];
     request.body = { userTo: "5e677d29991d8f4d664d571d", userFrom: "5e67f5fec9974b7a88eec739", content: "content message" };
 
@@ -79,6 +84,7 @@ describe("MessageCreateValidator", () => {
 
   it("- Unhappy Path - Empty Request", async () => {
     //Arrange
+    spyModel.and.resolveTo(true);
     const expectedErrors = [
       { value: undefined, location: "body", msg: errorMessages.isRequired, param: "content" },
       { value: undefined, location: "body", msg: errorMessages.isRequired, param: "userTo" },
@@ -96,7 +102,7 @@ describe("MessageCreateValidator", () => {
 
   it("- Unhappy Path - User not exists", async () => {
     //Arrange
-    const spyModdel = spyOn(User, "exists").and.resolveTo(false);
+    spyModel.and.resolveTo(false);
     request.body = { userTo: "5e677d29991d8f4d664d571d", userFrom: "5e67f5fec9974b7a88eec739", content: "content message" };
 
     const expectedErrors = [
@@ -107,8 +113,8 @@ describe("MessageCreateValidator", () => {
     //Act
     const { errorsCount, errors } = await expressValidationImperativelyMock(messageCreateValidator, request);
 
-    expect(spyModdel).toHaveBeenCalled();
-    expect(spyModdel).toHaveBeenCalledTimes(2);
+    expect(spyModel).toHaveBeenCalled();
+    expect(spyModel).toHaveBeenCalledTimes(2);
     expect(errorsCount).toEqual(expectedErrors.length);
     expect(errors).toEqual(expectedErrors);
   })
