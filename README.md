@@ -4,7 +4,6 @@ Este aplicativo consiste em disponibilizar apis para ilustrar um projeto de exem
 Para a versão 1 não foi abordado webSockets (socket.io), com o objetivo de simplificar o projeto para fins didáticos.
 
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/jfollmann/mpn-chat-api-sample/CI/master)
-[![Coverage Status](https://coveralls.io/repos/github/jfollmann/mpn-chat-api-sample/badge.svg?branch=master)](https://coveralls.io/github/jfollmann/mpn-chat-api-sample?branch=master)
 ![CI](https://github.com/jfollmann/mpn-chat-api-sample/workflows/CI/badge.svg?branch=master)
 
 [![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=MPN%20Chat%20API%20Sample&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fjfollmann%2Fmpn-chat-api-sample%2Fmaster%2FInsomniaWorkspace.json)
