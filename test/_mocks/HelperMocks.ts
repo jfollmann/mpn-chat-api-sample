@@ -30,10 +30,6 @@ export const expressRequestMock = {
   }
 }
 
-export const dbMock = {
-  connect: (): any => { }
-}
-
 export const expressValidationImperativelyMock = async (validations: any, req: any) => {
   await Promise.all(validations.map((val: any) => val.run(req)));
 
