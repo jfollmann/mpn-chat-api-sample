@@ -1,4 +1,4 @@
-import { check, query } from "express-validator";
+import { body, query } from "express-validator";
 import { errorMessages } from "../../helpers/Constants";
 import { User } from "../../models/User";
 
@@ -8,7 +8,9 @@ const messageListValidator = [
     .isMongoId().withMessage(errorMessages.isNotObjectId).bail()
     .custom((value) => {
       return User.exists({ _id: value })
-        .then(exists => exists ? true : Promise.reject(errorMessages.isNotFound))
+        .then((exists) => {
+          return exists ? Promise.resolve(true) : Promise.reject(errorMessages.isNotFound)
+        })
     }),
 
   query("userFrom")
@@ -16,33 +18,35 @@ const messageListValidator = [
     .isMongoId().withMessage(errorMessages.isNotObjectId).bail()
     .custom((value) => {
       return User.exists({ _id: value })
-        .then(exists => exists ? true : Promise.reject(errorMessages.isNotFound))
-    }),
+        .then((exists) => {
+          return exists ? Promise.resolve(true) : Promise.reject(errorMessages.isNotFound)
+        })
+    })
 ]
 
 const messageCreateValidator = [
-  check("userTo")
+  body("userTo")
+    .notEmpty().withMessage(errorMessages.isRequired).bail()
     .isMongoId().withMessage(errorMessages.isNotObjectId).bail()
-    .notEmpty().withMessage(errorMessages.isRequired)
-    .custom((value) => {
+    .custom((value: any) => {
       return User.exists({ _id: value })
-        .then(exists => exists ? true : Promise.reject(errorMessages.isNotFound))
+        .then(exists => exists ? Promise.resolve(true) : Promise.reject(errorMessages.isNotFound))
     }),
 
-  check("userFrom")
+  body("userFrom")
+    .notEmpty().withMessage(errorMessages.isRequired).bail()
     .isMongoId().withMessage(errorMessages.isNotObjectId).bail()
-    .notEmpty().withMessage(errorMessages.isRequired)
-    .custom((value) => {
+    .custom((value: any) => {
       return User.exists({ _id: value })
-        .then(exists => exists ? true : Promise.reject(errorMessages.isNotFound))
+        .then(exists => exists ? Promise.resolve(true) : Promise.reject(errorMessages.isNotFound))
     }),
 
-  check("content")
+  body("content")
     .notEmpty().withMessage(errorMessages.isRequired)
 ];
 
 const messageUpdateValidator = [
-  check("content")
+  body("content")
     .notEmpty().withMessage(errorMessages.isRequired)
 ]
 

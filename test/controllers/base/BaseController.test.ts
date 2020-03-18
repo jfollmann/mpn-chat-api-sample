@@ -1,18 +1,29 @@
-import { spyRequest, expressRequestMock, expressResponseMock, expressValidationMock } from "../../_mocks/HelperMocks";
+import { spyRequest, expressRequestMock, expressResponseMock } from "../../_mocks/HelperMocks";
 import { BaseController } from "../../../src/controllers/base/BaseController";
 import { UNPROCESSABLE_ENTITY } from "http-status-codes";
 
 describe("Base Controller", () => {
 
+  const errorsMock = (withErrors: boolean) => {
+    const errors = withErrors
+      ? [
+        { value: "123", msg: "not found", param: "field", location: "body" },
+        { value: "456", msg: "not found", param: "field", location: "body" }
+      ]
+      : [];
+
+    return { errors, isEmpty: () => errors.length === 0, array: () => errors };
+  };
+
+
   it("- HasError: False", () => {
     //Arrange
     const { spyStatus, spyJson } = spyRequest();
-    const expectedResult = expressValidationMock(false);
-    spyOn(BaseController.prototype, "validationRequest").and.returnValue(expectedResult as any);
+    spyOn(BaseController.prototype, "validationRequest").and.returnValue(errorsMock(false) as any);
 
     //Act
     const controller = new BaseController();
-    const response = controller["hasError"](expressRequestMock as any, expressResponseMock as any);
+    const response = controller["hasError"](expressRequestMock.init() as any, expressResponseMock as any);
 
     //Assert
     expect(spyStatus).not.toHaveBeenCalled();
@@ -23,12 +34,12 @@ describe("Base Controller", () => {
   it("- HasError: True", () => {
     //Arrange
     const { spyStatus, spyJson } = spyRequest();
-    const expectedResult = expressValidationMock(true);
+    const expectedResult = errorsMock(true);
     spyOn(BaseController.prototype, "validationRequest").and.returnValue(expectedResult as any);
 
     //Act
     const controller = new BaseController();
-    const response = controller["hasError"](expressRequestMock as any, expressResponseMock as any);
+    const response = controller["hasError"](expressRequestMock.init() as any, expressResponseMock as any);
 
     //Assert
     expect(spyStatus).toHaveBeenCalled();

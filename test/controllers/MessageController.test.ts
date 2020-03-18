@@ -24,10 +24,10 @@ describe("Message Controller", () => {
 
       //Act
       const controller = new MessageController();
-      const request = expressRequestMock;
+      const request = expressRequestMock.init();
       request.query = { userTo: "1", userFrom: "2" };
 
-      await controller.index(expressRequestMock as any, expressResponseMock as any);
+      await controller.index(expressRequestMock.init() as any, expressResponseMock as any);
 
       //Assert
       expect(spyStatus).toHaveBeenCalled();
@@ -45,7 +45,7 @@ describe("Message Controller", () => {
 
       //Act
       const controller = new MessageController();
-      await controller.index(expressRequestMock as any, expressResponseMock as any);
+      await controller.index(expressRequestMock.init() as any, expressResponseMock as any);
 
       //Assert
       expect(spyStatus).toHaveBeenCalled();
@@ -64,7 +64,7 @@ describe("Message Controller", () => {
 
       //Act
       const controller = new MessageController();
-      const request = expressRequestMock;
+      const request = expressRequestMock.init();
       request.body = { userTo: "1", "userFrom": "2", content: "create a message" };
       await controller.store(request as any, expressResponseMock as any);
 
@@ -85,7 +85,7 @@ describe("Message Controller", () => {
 
       //Act
       const controller = new MessageController();
-      await controller.store(expressRequestMock as any, expressResponseMock as any);
+      await controller.store(expressRequestMock.init() as any, expressResponseMock as any);
 
       //Assert
       expect(spyStatus).toHaveBeenCalled();
@@ -104,7 +104,7 @@ describe("Message Controller", () => {
 
       //Act
       const controller = new MessageController();
-      const request = expressRequestMock;
+      const request = expressRequestMock.init();
       request.params = { id: "123" };
       request.body = { content: "message date" };
       await controller.update(request as any, expressResponseMock as any);
@@ -125,7 +125,7 @@ describe("Message Controller", () => {
 
       //Act
       const controller = new MessageController();
-      const request = expressRequestMock;
+      const request = expressRequestMock.init();
       request.params = { id: "123" };
       await controller.update(request as any, expressResponseMock as any);
 
@@ -144,7 +144,7 @@ describe("Message Controller", () => {
 
       //Act
       const controller = new MessageController();
-      const request = expressRequestMock;
+      const request = expressRequestMock.init();
       request.params = { id: "123" };
       request.body = { content: "message date" };
       await controller.update(request as any, expressResponseMock as any);

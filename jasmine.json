@@ -3,8 +3,8 @@
   "spec_files": [
     "**/*.test.ts"
   ],
-  "stopSpecOnExpectationFailure": false,
-  "random": true,
+  "stopSpecOnExpectationFailure": true,
+  "random": false,
   "reporters": [
     {
       "name": "jasmine-spec-reporter#SpecReporter",

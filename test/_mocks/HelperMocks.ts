@@ -1,4 +1,5 @@
 import "jasmine";
+import { validationResult } from "express-validator";
 
 export const expressResponseMock = {
   status: (status: any): any => expressResponseMock,
@@ -13,24 +14,34 @@ export const expressNextFunctionMock = {
 export const expressRequestMock = {
   query: {},
   params: {},
-  body: {}
+  body: {},
+
+  init() {
+    this.query = {};
+    this.params = {};
+    this.body = {};
+
+    // hack to remove context of express-validator
+    if (this['express-validator#contexts']) {
+      delete this['express-validator#contexts'];
+    }
+
+    return expressRequestMock;
+  }
 }
 
 export const dbMock = {
   connect: (): any => { }
 }
 
-export const expressValidationMock = (withErrors: boolean) => {
-  const errors = withErrors
-    ? [
-      { value: "123", msg: "not found", param: "field", location: "body" },
-      { value: "456", msg: "not found", param: "field", location: "body" }
-    ]
-    : [];
+export const expressValidationImperativelyMock = async (validations: any, req: any) => {
+  await Promise.all(validations.map((val: any) => val.run(req)));
 
-  return { errors, isEmpty: () => errors.length === 0, array: () => errors };
-};
+  const result = validationResult(req);
+  const errors = result.array();
 
+  return { hasErrors: errors.length > 0, errorsCount: errors.length, errors };
+}
 
 export const spyRequest = () => {
   const spyStatus = spyOn(expressResponseMock, "status").and.returnValue(expressResponseMock);
@@ -39,7 +50,3 @@ export const spyRequest = () => {
 
   return { spyStatus, spyJson, spySend };
 }
-
-
-
-

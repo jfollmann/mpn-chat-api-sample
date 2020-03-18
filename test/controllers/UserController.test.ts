@@ -20,7 +20,7 @@ describe("User Controller", () => {
 
       //Act
       const controller = new UserController();
-      await controller.index(expressRequestMock as any, expressResponseMock as any);
+      await controller.index(expressRequestMock.init() as any, expressResponseMock as any);
 
       //Assert
       expect(spyStatus).toHaveBeenCalled();
@@ -38,7 +38,7 @@ describe("User Controller", () => {
 
       //Act
       const controller = new UserController();
-      await controller.index(expressRequestMock as any, expressResponseMock as any);
+      await controller.index(expressRequestMock.init() as any, expressResponseMock as any);
 
       //Assert
       expect(spyStatus).toHaveBeenCalled();
@@ -57,7 +57,7 @@ describe("User Controller", () => {
 
       //Act
       const controller = new UserController();
-      const request = expressRequestMock;
+      const request = expressRequestMock.init();
       request.body = { name: "user 3", email: "user3@e.mail" };
       await controller.store(request as any, expressResponseMock as any);
 
@@ -78,7 +78,7 @@ describe("User Controller", () => {
 
       //Act
       const controller = new UserController();
-      await controller.store(expressRequestMock as any, expressResponseMock as any);
+      await controller.store(expressRequestMock.init() as any, expressResponseMock as any);
 
       //Assert
       expect(spyStatus).toHaveBeenCalled();
@@ -97,7 +97,7 @@ describe("User Controller", () => {
 
       //Act
       const controller = new UserController();
-      const request = expressRequestMock;
+      const request = expressRequestMock.init();
       request.params = { id: "123" };
       await controller.show(request as any, expressResponseMock as any);
 
@@ -117,7 +117,7 @@ describe("User Controller", () => {
 
       //Act
       const controller = new UserController();
-      const request = expressRequestMock;
+      const request = expressRequestMock.init();
       request.params = { id: "123" };
       await controller.show(request as any, expressResponseMock as any);
 
@@ -136,7 +136,7 @@ describe("User Controller", () => {
 
       //Act
       const controller = new UserController();
-      const request = expressRequestMock;
+      const request = expressRequestMock.init();
       request.params = { id: "123" };
       await controller.show(request as any, expressResponseMock as any);
 
@@ -156,7 +156,7 @@ describe("User Controller", () => {
 
       //Act
       const controller = new UserController();
-      const request = expressRequestMock;
+      const request = expressRequestMock.init();
       request.params = { id: "123" };
       request.body = { name: "user 1", email: "user1@e.mail" };
       await controller.update(request as any, expressResponseMock as any);
@@ -177,7 +177,7 @@ describe("User Controller", () => {
 
       //Act
       const controller = new UserController();
-      const request = expressRequestMock;
+      const request = expressRequestMock.init();
       request.params = { id: "123" };
       await controller.update(request as any, expressResponseMock as any);
 
@@ -196,7 +196,7 @@ describe("User Controller", () => {
 
       //Act
       const controller = new UserController();
-      const request = expressRequestMock;
+      const request = expressRequestMock.init();
       request.params = { id: "123" };
       await controller.update(request as any, expressResponseMock as any);
 
@@ -216,7 +216,7 @@ describe("User Controller", () => {
 
       //Act
       const controller = new UserController();
-      const request = expressRequestMock;
+      const request = expressRequestMock.init();
       request.params = { id: "123" };
       await controller.destroy(request as any, expressResponseMock as any);
 
@@ -236,7 +236,7 @@ describe("User Controller", () => {
 
       //Act
       const controller = new UserController();
-      const request = expressRequestMock;
+      const request = expressRequestMock.init();
       request.params = { id: "123" };
       await controller.destroy(request as any, expressResponseMock as any);
 
@@ -255,7 +255,7 @@ describe("User Controller", () => {
 
       //Act
       const controller = new UserController();
-      const request = expressRequestMock;
+      const request = expressRequestMock.init();
       request.params = { id: "123" };
       await controller.destroy(request as any, expressResponseMock as any);
 

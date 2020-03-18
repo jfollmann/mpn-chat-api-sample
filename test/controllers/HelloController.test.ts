@@ -13,7 +13,7 @@ describe("Hello Controller", () => {
 
     //Act
     const controller = new HelloController();
-    controller.index(expressRequestMock as any, expressResponseMock as any);
+    controller.index(expressRequestMock.init() as any, expressResponseMock as any);
 
     //Assert
     expect(spyStatus).toHaveBeenCalled();
