@@ -12,42 +12,71 @@ Para a versão 1 não foi abordado webSockets (socket.io), com o objetivo de sim
 
 ```
 ~/mpn-chat-api
-├── k8s                               // Diretório com a stack do K8s
-│   ├── deployment.yaml               // K8s: Definição do deployment
-│   ├── hpa.yaml                      // K8s: Definição do HPA
-│   ├── pod.yaml                      // K8s: Definição de POD (descontinuado)
-│   ├── secrets.yaml                  // K8s: Definição das Secrets
-│   ├── service.yaml                  // K8s: Definição dos Services
-│   └── test_stress.sh                // Script SH de test de stress
-├── src                               // Diretório dos fontes do projeto
-│   ├── controllers                   // Diretório dos controllers do Projeto
-│   │   ├── base                      // Diretório dos controllers Base do Projeto
-│   │   │   └── BaseController.ts     // Controller Base do Projeto
-│   │   ├── HelloController.ts        // Hello Controller
-│   │   ├── MessageController.ts      // Message Controller
-│   │   └── UserController.ts         // User Controller
-│   ├── helpers                       // Diretório dos Helpers do projeto
-│   │   └── Constants.ts              // Arquivo de definição de constantes
-│   ├── middlewares                   // Diretório de Middlewares
-│   │   ├── LoggerMiddleware.ts       // Logger Middleware
-│   │   └── validators                // Diretório de middlewares de validação
-│   │       ├── MessageValidator.ts   // Middleware de validação das messagens
-│   │       └── UserValidator.ts      // Middleware de validação de usuário
-│   ├── models                        // Diretório dos Modelos do Projeto (mongo)
-│   │   ├── Message.ts                // Definição do Modelo de Mensagem
-│   │   └── User.ts                   // Definição do Modelo de Usuário
-│   ├── mongo_data                    // Diretório do mongo_data (volume docker)
-│   ├── App.ts                        // Arquivo principal do projeto
-│   └── Routes.ts                     // Arquivo de definição das Rotas do Projeto
-├── docker-compose.yml                // Arquivo de definição da stack do compose
-├── Dockerfile                        // DockerFile
-├── InsomniaWorkspace.json            // Arquivo Collection Insomnia Workspace (Sample Request's)
-├── nodemon.json                      // Recarregar automáticamente fontes alterados
-├── package.json                      // Configurações e dependências do projeto
-├── package-lock.json                 // Versões instaladas de cada depedência do projeto
-├── README.md                         // Leia-me (este arquivo)
-├── tsconfig.json                     // Configurações TypeScript (GTS based)
-└── tslint.json                       // Configurações do TSLint
+├── k8s                                   // Diretório com a stack do K8s
+│   ├── deployment.yaml                   // K8s: Definição do deployment
+│   ├── hpa.yaml                          // K8s: Definição do HPA
+│   ├── pod.yaml                          // K8s: Definição de POD (descontinuado)
+│   ├── secrets.yaml                      // K8s: Definição das Secrets
+│   ├── service.yaml                      // K8s: Definição dos Services
+│   └── test_stress.sh                    // Script SH de test de stress
+├── src                                   // Diretório dos fontes do projeto
+│   ├── application                       // Diretório principal da aplicação
+│   │   └── App.ts                        // Definição da classe "Application"
+│   ├── controllers                       // Diretório dos controllers do Projeto
+│   │   ├── base                          // Diretório dos controllers Base do Projeto
+│   │   │   └── BaseController.ts         // Controller Base do Projeto
+│   │   ├── HelloController.ts            // Hello Controller
+│   │   ├── MessageController.ts          // Message Controller
+│   │   └── UserController.ts             // User Controller
+│   ├── helpers                           // Diretório dos Helpers do projeto
+│   │   └── Constants.ts                  // Arquivo de definição de constantes
+│   ├── middlewares                       // Diretório de Middlewares
+│   │   ├── LoggerMiddleware.ts           // Logger Middleware
+│   │   └── validators                    // Diretório de middlewares de validação
+│   │       ├── MessageValidator.ts       // Middleware de validação das messagens
+│   │       └── UserValidator.ts          // Middleware de validação de usuário
+│   ├── models                            // Diretório dos Modelos do Projeto (mongo)
+│   │   ├── Database.ts                   // Definição da Classe de Conexão com o banco
+│   │   ├── Message.ts                    // Definição do Modelo de Mensagem
+│   │   └── User.ts                       // Definição do Modelo de Usuário
+│   ├── routes                            // Diretório das Rotas do Projeto
+│   │   ├── HelloRoutes.ts                // Hello Routes
+│   │   ├── MessageRoutes.ts              // Message Routes
+│   │   └── UserRoutes.ts                 // User Routes
+│   └── Server.ts                         // Arquivo principal do projeto
+├── test                                  // Diretório dos testes unitários do Projeto
+│   ├── application                       // Diretório dos testes principais da aplicação
+│   │   └── App.test.ts                   // Testes da classe App
+│   ├── controllers                       // Diretório de testes dos Controllers
+│   │   ├── base                          // Controller Base do Projeto
+│   │   │   └── BaseController.test.ts    // Testes do Base Controller
+│   │   ├── HelloController.test.ts       // Testes do Hello Controller
+│   │   ├── MessageController.test.ts     // Testes do Message Controller
+│   │   └── UserController.test.ts        // Testes do User Controller
+│   ├── middlewares                       // Diretório dos Testes dos middlewares
+│   │   ├── LoggerMiddleware.test.ts      // Testes do Logger Middleware
+│   │   └── validators                    // Diretório dos Testes dos Validators
+│   │       ├── MessageValidator.test.ts  // Testes do Message Validator
+│   │       └── UserValidator.test.ts     // Testes do User Validator
+│   ├── _mocks                            // Diretório dos Mocks dos Testes
+│   │   └── HelperMocks.ts                // Definição do Helper de Mock dos Testes
+│   ├── models                            // Diretório dos Testes dos Modelos
+│   │   └── Database.test.ts              // Testes do Database
+│   ├── routes                            // Diretório dos Testes das Rotas do Projeto
+│   │   ├── HelloRoutes.test.ts           // Testes Hello Routes
+│   │   ├── MessageRoutes.test.ts         // Testes Message Routes
+│   │   └── UserRoutes.test.ts            // Testes User Routes
+│   └── Server.test.ts                    // Testes do Server
+├── docker-compose.yml                    // Arquivo de definição da stack do compose
+├── Dockerfile                            // DockerFile
+├── InsomniaWorkspace.json                // Arquivo Collection Insomnia Workspace (Sample Request's)
+├── nodemon.json                          // Recarregar automáticamente fontes alterados
+├── package.json                          // Configurações e dependências do projeto
+├── package-lock.json                     // Versões instaladas de cada depedência do projeto
+├── README.md                             // Leia-me (este arquivo)
+├── tsconfig.json                         // Configurações TypeScript (GTS based)
+├── jasmine.json                          // Configurações dos testes (Jasmine)
+└── tslint.json                           // Configurações do TSLint
 ```
 
 ## Dependências do Projeto
