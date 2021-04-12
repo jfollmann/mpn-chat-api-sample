@@ -14,7 +14,9 @@ export class MessageController extends BaseController {
           { $and: [{ userTo }, { userFrom }] },
           { $and: [{ userTo: userFrom }, { userFrom: userTo }] }
         ]
-      }, [], { sort: { createdAt: 1 } })//.populate("userTo").populate("userFrom")
+      }, [], { sort: { createdAt: 1 } })
+        .populate("userTo")
+        .populate("userFrom")
         .then(messages => res.status(OK).json(messages))
         .catch(error => res.status(INTERNAL_SERVER_ERROR).json(error))
     }
