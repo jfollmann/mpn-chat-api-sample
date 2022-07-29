@@ -1,5 +1,6 @@
 # MPN Chat API
 
+Teste PR
 Este aplicativo consiste em disponibilizar apis para ilustrar um projeto de exemplo utilizando express e mongoose.
 Para a versão 1 não foi abordado webSockets (socket.io), com o objetivo de simplificar o projeto para fins didáticos.
 
